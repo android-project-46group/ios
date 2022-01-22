@@ -18,28 +18,26 @@ struct MemberListView: View {
         VStack(alignment: .leading, spacing: 8) {
             
             TopBar()
-        
+            
             NavigationView {
-                switch viewModel.memberList {
-                case .idle, .loading:
-                    ProgressView("loading...")
-                case let .loaded(members):
-                    if members.members.isEmpty {
-                        Text("something wrong about API.")
-                    } else {
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack {
-                                ForEach(members.members) { member in
-                                    Text(member.user_name)
-                                }
-                            }
+                Group {
+                    switch viewModel.memberList {
+                    case .idle, .loading:
+                        ProgressView("loading...")
+                    case let .loaded(members):
+                        if members.members.isEmpty {
+                            Text("something wrong about API.")
+                        } else {
+                            
+                            // MARK: Main List about members
+                            MainList(members: members.members)
                         }
-                        .padding()
+                    case let .failed(error):
+
+                        Text(error.localizedDescription)
                     }
-                case let .failed(error):
-                    
-                    Text(error.localizedDescription)
                 }
+                .navigationBarHidden(true)
             }
             .onAppear {
                 viewModel.onAppear()
@@ -57,13 +55,13 @@ struct MemberListView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.horizontal, 8)
     }
-    
+
     func GroupTitle(group: String) -> some View {
         VStack(spacing: 2) {
             Text(group)
                 .foregroundColor(group == viewModel.selectedGroup ? Color.purple : Color.gray)
                 .padding(5)
-            
+
             DoubleDivider(show: group == viewModel.selectedGroup)
         }
     }
@@ -82,14 +80,70 @@ struct MemberListView: View {
                 .frame(height: 2)
         }
     }
+    
+    func MainList(members: [Member]) -> some View {
+        
+        ScrollView(.vertical, showsIndicators: false) {
+            let width: CGFloat = 100
+            LazyVStack {
+                ForEach((0..<GetRowNum(members: members)), id: \.self) { row in
+                    HStack(alignment: .top, spacing: 16) {
+                        ForEach(0...2, id: \.self) { col in
+                            if 3*row+col < members.count {
+                                OnePerson(member: members[3*row+col], width: width)
+                            } else {
+                                Rectangle()
+                                    .frame(width: width)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 4)
+        }
+    }
+    
+    func GetRowNum(members: [Member]) -> Int {
+        let t = members.count / 3
+        if members.count % 3 == 0 {
+            return t
+        } else {
+            return t + 1
+        }
+    }
+    
+    func OnePerson(member: Member, width: CGFloat) -> some View {
+        VStack(alignment: .center) {
+            // MARK: Face Image
+            AsyncImage(url: URL(string: member.img_url)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: width, height: width)
+            .aspectRatio(contentMode: .fill)
+            .clipShape(Circle())
+            .background(
+                Circle()
+                    .stroke(Color.purple, lineWidth: 4)
+            )
+            
+            // MARK: Name
+            Text(member.user_name)
+                .foregroundColor(Color.purple)
+                .padding(.vertical, 4)
+        }
+        .padding(2)
+    }
 }
+
 
 struct MemberListView_Previews: PreviewProvider {
     static var previews: some View{
         Group {
             MemberListView(
                 viewModel: MemberListViewModel(
-                
+
                     repoRepository: MockRepoRepository(
                         members: MemberList(members: [
                             .mock1, .mock2, .mock3, .mock4, .mock5,
@@ -108,10 +162,10 @@ struct MemberListView_Previews: PreviewProvider {
                 )
             )
             .previewDisplayName("Default")
-            
+
             MemberListView(
                 viewModel: MemberListViewModel(
-                
+
                     repoRepository: MockRepoRepository(
                         members: MemberList(members: []),
                         error: nil
@@ -119,10 +173,10 @@ struct MemberListView_Previews: PreviewProvider {
                 )
             )
             .previewDisplayName("Empty List??")
-            
+
             MemberListView(
                 viewModel: MemberListViewModel(
-                
+
                     repoRepository: MockRepoRepository(
                         members: MemberList(members: []),
                         error: DummyError()

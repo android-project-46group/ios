@@ -8,7 +8,7 @@
 import Foundation
 
 struct Member: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     var user_id: Int
     var user_name: String
     var birthday: String
@@ -17,4 +17,15 @@ struct Member: Identifiable, Codable {
     var blood_type: String
     var blog_url: String
     var img_url: String
+
+    private enum CodingKeys: String, CodingKey {
+        case user_id
+        case user_name
+        case birthday
+        case generation
+        case height
+        case blood_type
+        case blog_url
+        case img_url
+    }
 }
