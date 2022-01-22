@@ -20,6 +20,8 @@
 		E16B4998279B9BCA00D41995 /* MockRepoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B4997279B9BCA00D41995 /* MockRepoRepository.swift */; };
 		E16B499A279BA63400D41995 /* MemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B4999279BA63400D41995 /* MemberList.swift */; };
 		E16B499C279BBFD900D41995 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B499B279BBFD900D41995 /* DummyError.swift */; };
+		E16B499E279BC28A00D41995 /* MemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B499D279BC28A00D41995 /* MemberListView.swift */; };
+		E16B49A0279BC4BB00D41995 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B499F279BC4BB00D41995 /* BaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		E16B4997279B9BCA00D41995 /* MockRepoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepoRepository.swift; sourceTree = "<group>"; };
 		E16B4999279BA63400D41995 /* MemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberList.swift; sourceTree = "<group>"; };
 		E16B499B279BBFD900D41995 /* DummyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyError.swift; sourceTree = "<group>"; };
+		E16B499D279BC28A00D41995 /* MemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListView.swift; sourceTree = "<group>"; };
+		E16B499F279BC4BB00D41995 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		E16B4986279B92C000D41995 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E16B499D279BC28A00D41995 /* MemberListView.swift */,
+				E16B499F279BC4BB00D41995 /* BaseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,11 +219,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E16B4933279A15BF00D41995 /* ContentView.swift in Sources */,
+				E16B49A0279BC4BB00D41995 /* BaseView.swift in Sources */,
 				E16B499A279BA63400D41995 /* MemberList.swift in Sources */,
 				E16B4993279B985E00D41995 /* Stateful.swift in Sources */,
 				E16B499C279BBFD900D41995 /* DummyError.swift in Sources */,
 				E16B498D279B960C00D41995 /* RepoRepository.swift in Sources */,
 				E16B498B279B942800D41995 /* Member.swift in Sources */,
+				E16B499E279BC28A00D41995 /* MemberListView.swift in Sources */,
 				E16B4989279B92DD00D41995 /* MemberListViewModel.swift in Sources */,
 				E16B4995279B99E900D41995 /* MockMemberList.swift in Sources */,
 				E16B4998279B9BCA00D41995 /* MockRepoRepository.swift in Sources */,
