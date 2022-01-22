@@ -52,6 +52,7 @@ struct BaseView: View {
                 TabButton(image: "gearshape.fill")
             }
             .frame(maxWidth: .infinity)
+            .padding(.top, 8)
         }
     }
     
