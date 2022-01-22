@@ -14,6 +14,9 @@ class MemberListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     private let repoRepository: RepoRepository
+    
+    let allGroups = ["乃木坂46", "櫻坂46", "日向坂46"]
+    var selectedGroup = "乃木坂46"
 
     init(repoRepository: RepoRepository = RepoDataRepository()) {
         self.repoRepository = repoRepository
